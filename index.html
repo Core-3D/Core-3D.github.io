@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="description" content="Core3D: Dynamic Information Nucleus Selection and Token Pruning for Dense 3D Multimodal Models.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta property="og:title" content="Core3D: Dynamic Token Pruning for 3D Multimodal Models"/>
-  <meta property="og:description" content="A dual-stage token pruning framework achieving >90% token compression while improving 3D spatial reasoning."/>
-  <meta property="og:image" content="静止的/图片/图1.png"/>
-
-  <title>Core3D: Dynamic Token Pruning for 3D Multimodal Models</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Core3D: 面向密集3D多模态模型的动态信息核选择与Token剪枝">
+  <title>Core3D: 动态Token剪枝框架</title>
+  
+  <!-- 图标 -->
   <link rel="icon" href="静止的/图片/core3d.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- 字体与图标 -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -19,39 +18,30 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Noto Sans SC', sans-serif;
     }
 
     body {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       color: #f1f5f9;
       min-height: 100vh;
-      text-align: center;
     }
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto !important;
-      padding: 0 20px;
-      width: 100%;
-    }
-
+    /* 头部区域 */
     .hero {
-      padding: 70px 20px;
+      padding: 60px 20px;
+      text-align: center;
       background: rgba(0,0,0,0.3);
       border-bottom: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .hero h1 {
-      font-size: clamp(28px, 5vw, 44px);
+      font-size: clamp(24px, 5vw, 40px);
       background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
       -webkit-background-clip: text;
       color: transparent;
-      margin-bottom: 20px;
-      line-height: 1.3;
+      margin-bottom: 30px;
+      line-height: 1.4;
     }
 
     .links {
@@ -59,11 +49,10 @@
       justify-content: center;
       gap: 16px;
       flex-wrap: wrap;
-      margin-top: 10px;
     }
 
     .btn {
-      padding: 13px 26px;
+      padding: 12px 24px;
       border-radius: 12px;
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.15);
@@ -79,40 +68,43 @@
 
     .btn:hover {
       background: rgba(255,255,255,0.18);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
     }
 
+    /* TL;DR 区域 */
     .tldr {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 28px;
       background: linear-gradient(90deg, rgba(56,189,248,0.1), rgba(129,140,248,0.1));
       border-left: 4px solid #38bdf8;
-      padding: 28px;
-      border-radius: 14px;
-      margin: 50px auto;
-      max-width: 900px;
+      border-radius: 12px;
+      font-size: clamp(16px, 3vw, 18px);
       line-height: 1.7;
-      font-size: clamp(15px, 3vw, 17px);
     }
 
     .tldr strong {
       color: #38bdf8;
-      font-size: clamp(16px, 3vw, 18px);
     }
 
-    /* 轮播容器 */
+    /* 轮播图核心修复 */
     .carousel {
-      max-width: 920px;
-      margin: 60px auto;
-      border-radius: 22px;
+      max-width: 1000px;
+      margin: 50px auto;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 25px 70px rgba(0,0,0,0.45);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
       position: relative;
-      background: rgba(0,0,0,0.2);
+      background: #1a1f2e;
+      /* 强制最小高度，避免被挤没 */
+      min-height: 500px;
     }
 
     .carousel-wrapper {
       display: flex;
-      transition: transform 0.8s ease;
+      transition: transform 0.6s ease-in-out;
+      height: 100%;
     }
 
     .carousel-item {
@@ -121,39 +113,46 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 20px;
+      height: 100%;
     }
 
     .carousel-item img {
       max-width: 95%;
+      max-height: 400px;
+      width: auto;
       height: auto;
-      border-radius: 12px;
-      margin: 15px 0;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      /* 强制显示，避免被隐藏 */
+      display: block !important;
+      visibility: visible !important;
     }
 
     .caption {
-      padding: 15px 20px 25px;
-      font-size: clamp(14px, 3vw, 17px);
-      color: #e2e8f0;
+      margin-top: 16px;
+      font-size: clamp(14px, 3vw, 16px);
+      color: #cbd5e1;
       font-weight: 500;
+      text-align: center;
     }
 
-    /* 左右切换按钮 */
+    /* 左右按钮 */
     .carousel-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       border: none;
       color: white;
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      font-size: 24px;
+      font-size: 20px;
       cursor: pointer;
       z-index: 10;
       transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }
 
     .carousel-btn:hover {
@@ -162,20 +161,24 @@
     }
 
     .prev-btn {
-      left: 20px;
+      left: 16px;
     }
 
     .next-btn {
-      right: 20px;
+      right: 16px;
     }
 
+    /* 摘要区域 */
     .section {
-      padding: 70px 0;
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 20px;
     }
 
     .section h2 {
-      font-size: clamp(24px, 4vw, 34px);
-      margin-bottom: 35px;
+      font-size: clamp(24px, 4vw, 32px);
+      text-align: center;
+      margin-bottom: 30px;
       color: #f1f5f9;
       position: relative;
     }
@@ -193,123 +196,125 @@
     }
 
     .abstract {
-      background: rgba(255,255,255,0.04);
-      padding: 35px;
+      background: rgba(255,255,255,0.05);
+      padding: 32px;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
       line-height: 1.8;
       font-size: clamp(15px, 3vw, 17px);
       color: #e2e8f0;
       text-align: justify;
-      max-width: 900px;
-      margin: 0 auto;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
     }
 
+    /* 页脚 */
     footer {
-      padding: 45px 20px;
+      padding: 40px 20px;
+      text-align: center;
       border-top: 1px solid rgba(255,255,255,0.1);
       color: #94a3b8;
-      font-size: clamp(13px, 3vw, 15px);
+      font-size: 14px;
     }
   </style>
 </head>
-
 <body>
 
+  <!-- 头部 -->
   <section class="hero">
-    <div class="container">
-      <h1>Core3D: Dynamic Token Pruning<br>for Dense 3D Multimodal Models</h1>
-      <div class="links">
-        <a href="https://core-3d.github.io/" class="btn">
-          <i class="fas fa-globe"></i> Project Page
-        </a>
-        <a href="https://github.com/core-3d" class="btn">
-          <i class="fab fa-github"></i> Code & Dataset
-        </a>
-      </div>
+    <h1>Core3D: 面向密集3D多模态模型的<br>动态信息核选择与Token剪枝</h1>
+    <div class="links">
+      <a href="https://core-3d.github.io/" class="btn">
+        <i class="fas fa-globe"></i> 项目主页
+      </a>
+      <a href="https://github.com/core-3d" class="btn">
+        <i class="fab fa-github"></i> 代码与数据集
+      </a>
     </div>
   </section>
 
-  <div class="container">
-    <div class="tldr">
-      <p><strong>TL;DR</strong><br>
-      Dense 3D sequences cause massive token explosion in multimodal models. Core3D uses a dual-stage dynamic pruning framework to remove <strong>over 90% redundant tokens</strong> while <strong>improving</strong> 3D spatial reasoning performance.</p>
-    </div>
+  <!-- TL;DR -->
+  <div class="tldr">
+    <p><strong>核心亮点</strong><br>
+    密集的3D序列会导致多模态模型中标记数量激增。Core3D采用双阶段动态剪枝框架，在<strong>提升3D空间推理性能</strong>的同时，去除<strong>超过90%的冗余标记</strong>。</p>
   </div>
 
-  <!-- 轮播模块，完全匹配你的文件名 -->
+  <!-- 轮播图（修复版，100%显示） -->
   <div class="carousel">
-    <button class="carousel-btn prev-btn" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
-    <button class="carousel-btn next-btn" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+    <button class="carousel-btn prev-btn" onclick="prevSlide()">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="carousel-btn next-btn" onclick="nextSlide()">
+      <i class="fas fa-chevron-right"></i>
+    </button>
 
     <div class="carousel-wrapper" id="carouselWrapper">
       <div class="carousel-item">
-        <img src="静止的/图片/图1.png" alt="Framework">
-        <div class="caption">Figure 1: Overall Architecture of Core3D</div>
+        <img src="静止的/图片/fig1.png" alt="Core3D整体架构" loading="lazy">
+        <div class="caption">图1：Core3D 双阶段动态剪枝整体架构</div>
       </div>
       <div class="carousel-item">
-        <img src="静止的/图片/图2.png" alt="Results">
-        <div class="caption">Figure 2: Performance vs Efficiency Trade-off</div>
+        <img src="静止的/图片/fig2.png" alt="性能效率权衡" loading="lazy">
+        <div class="caption">图2：不同压缩率下的性能-效率权衡曲线</div>
       </div>
       <div class="carousel-item">
-        <img src="静止的/图片/图3.png" alt="Ablation">
-        <div class="caption">Figure 3: Ablation Study of Core Components</div>
+        <img src="静止的/图片/fig3.png" alt="消融实验" loading="lazy">
+        <div class="caption">图3：核心组件与稀疏正则化消融实验</div>
       </div>
       <div class="carousel-item">
-        <img src="静止的/图片/表格1.png" alt="Table1">
-        <div class="caption">Table 1: MV-ScanQA Dataset Results</div>
+        <img src="静止的/图片/table1.png" alt="MV-ScanQA结果" loading="lazy">
+        <div class="caption">表1：MV-ScanQA 数据集实验结果</div>
       </div>
       <div class="carousel-item">
-        <img src="静止的/图片/表格2.png" alt="Table2">
-        <div class="caption">Table 2: BraTS & Spatial Video Benchmarks</div>
+        <img src="静止的/图片/table2.png" alt="BraTS结果" loading="lazy">
+        <div class="caption">表2：BraTS 医疗与空间视频基准结果</div>
       </div>
       <div class="carousel-item">
-        <img src="静止的/图片/表格3.png" alt="Table3">
-        <div class="caption">Table 3: Additional Experimental Results</div>
+        <img src="静止的/图片/table3.png" alt="补充实验" loading="lazy">
+        <div class="caption">表3：补充实验与鲁棒性验证结果</div>
       </div>
     </div>
   </div>
 
+  <!-- 摘要 -->
   <section class="section">
-    <div class="container">
-      <h2>Abstract</h2>
-      <div class="abstract">
-        <p>While Multimodal Large Language Models (MLLMs) have significantly advanced 3D spatial reasoning, extending them to dense 3D continuous sequences—such as multiparametric MRI or spatial video frames—triggers a catastrophic token explosion. This massive influx of redundant spatial tokens not only breaches computational and memory constraints but also degrades reasoning due to attention dilution.</p>
-        <br>
-        <p>We present Core3D, a plug-and-play, ultra-lightweight dynamic token pruning architecture driven by extreme computational compression. Core3D uses a dual-stage pipeline: Inter-Slice Feature Similarity Filtering and Dynamic Information Nucleus Selection. The framework prunes over 90% tokens, reduces VRAM usage by more than 80%, and accelerates inference—while <em>improving</em> spatial reasoning over baseline models.</p>
-        <br>
-        <p>Extensive experiments on medical and multi-view 3D benchmarks show that Core3D democratizes efficient 3D multimodal understanding for edge and clinical domains.</p>
-      </div>
+    <h2>研究摘要</h2>
+    <div class="abstract">
+      <p>尽管多模态大语言模型（MLLMs）在3D空间推理任务上取得了显著进展，但将其扩展到密集3D连续序列（如多参数MRI、空间视频帧）时，会引发灾难性的Token爆炸问题。海量冗余空间Token不仅突破了标准Transformer的计算与内存上限，还会因注意力稀释导致推理性能下降。</p>
+      <br>
+      <p>为解决这些瓶颈，我们提出了Core3D，一个即插即用、超轻量的动态Token剪枝架构，以极致计算压缩为核心设计原则。Core3D通过双阶段路由层无缝集成到现有3D-MLLMs中：首先，跨切片特征相似性过滤模块在宏观层面截断相邻物理切片间的冗余背景；其次，动态信息核选择机制利用自注意力矩阵自适应保留最关键的语义核，对非信息特征执行硬剪枝。</p>
+      <br>
+      <p>在参数高效微调中通过稀疏正则化损失优化框架，可保持大规模基础骨干网络完全冻结。在密集医疗序列（BraTS）和无约束多视图环境（MV-ScanQA、SPATIALAB）的广泛评估表明，Core3D实现了超过90%的极端Token压缩率，峰值显存消耗降低80%以上，推理速度大幅提升，同时在3D空间定位与几何推理任务上全面超越未剪枝基线模型。Core3D为资源受限的边缘与临床场景，实现了高性能3D-MLLMs的硬件加速部署。</p>
     </div>
   </section>
 
+  <!-- 页脚 -->
   <footer>
-    <div class="container">
-      <p>Core3D Project Page</p>
-    </div>
+    <p>Core3D 项目主页 © 2026</p>
   </footer>
 
+  <!-- 轮播JS逻辑 -->
   <script>
     let currentSlide = 0;
     const totalSlides = document.querySelectorAll('.carousel-item').length;
     const wrapper = document.getElementById('carouselWrapper');
 
+    // 更新轮播位置
     function updateSlide() {
       wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
     }
 
+    // 下一张
     function nextSlide() {
       currentSlide = (currentSlide + 1) % totalSlides;
       updateSlide();
     }
 
+    // 上一张
     function prevSlide() {
       currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
       updateSlide();
     }
 
-    // 自动轮播：每5秒切换一次
+    // 自动轮播（每5秒切换）
     setInterval(nextSlide, 5000);
   </script>
 </body>
