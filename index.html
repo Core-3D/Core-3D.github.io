@@ -7,12 +7,12 @@
 
   <meta property="og:title" content="Core3D: Dynamic Token Pruning for 3D Multimodal Models"/>
   <meta property="og:description" content="A dual-stage token pruning framework achieving >90% token compression while improving 3D spatial reasoning."/>
-  <meta property="og:image" content="static/images/teaser.png"/>
+  <meta property="og:image" content="静止的/图片/fig1.png"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
 
   <title>Core3D: Dynamic Token Pruning for 3D Multimodal Models</title>
-  <link rel="icon" href="static/images/core3d.ico">
+  <link rel="icon" href="静止的/图片/core3d.ico">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -27,40 +27,54 @@
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       color: #f1f5f9;
       min-height: 100vh;
-    }
-
-    .hero {
-      padding: 60px 20px;
       text-align: center;
-      background: rgba(0,0,0,0.3);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .hero h1 {
-      font-size: 42px;
-      background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 16px;
-      line-height: 1.2;
     }
 
     .container {
       max-width: 1000px;
-      margin: 0 auto;
+      margin: 0 auto !important;
       padding: 0 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .hero {
+      padding: 70px 20px;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 20px;
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    .hero p {
+      font-size: clamp(16px, 3vw, 19px);
+      color: #cbd5e1;
+      margin-bottom: 30px;
+      text-align: center;
     }
 
     .links {
-      margin: 30px 0;
       display: flex;
       justify-content: center;
       gap: 16px;
       flex-wrap: wrap;
+      margin-top: 10px;
     }
 
     .btn {
-      padding: 12px 24px;
+      padding: 13px 26px;
       border-radius: 12px;
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.15);
@@ -69,100 +83,150 @@
       font-weight: 500;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.2);
-    }
-
-    .carousel {
-      margin: 50px auto;
-      max-width: 900px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    }
-
-    .carousel-wrapper {
-      display: flex;
-      transition: transform 0.8s ease;
-    }
-
-    .carousel-item {
-      min-width: 100%;
-    }
-
-    .carousel-item img {
-      width: 100%;
-      display: block;
-      border-radius: 20px;
-    }
-
-    .caption {
-      padding: 16px;
-      text-align: center;
-      font-size: 16px;
-      color: #cbd5e1;
-    }
-
-    .section {
-      padding: 60px 0;
-    }
-
-    .section h2 {
-      text-align: center;
-      font-size: 30px;
-      margin-bottom: 30px;
-      color: #e2e8f0;
-    }
-
-    .abstract {
-      background: rgba(255,255,255,0.04);
-      padding: 30px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.08);
-      line-height: 1.7;
-      font-size: 16px;
-      color: #e2e8f0;
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.25);
     }
 
     .tldr {
       background: linear-gradient(90deg, rgba(56,189,248,0.1), rgba(129,140,248,0.1));
       border-left: 4px solid #38bdf8;
-      padding: 24px;
-      border-radius: 12px;
-      margin: 40px 0;
+      padding: 28px;
+      border-radius: 14px;
+      margin: 50px auto;
+      max-width: 900px;
+      text-align: center;
+      line-height: 1.7;
+      font-size: clamp(15px, 3vw, 17px);
     }
 
     .tldr strong {
       color: #38bdf8;
+      font-size: clamp(16px, 3vw, 18px);
     }
 
-    footer {
-      padding: 40px 20px;
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      color: #94a3b8;
-      font-size: 14px;
-    }
-
-    @keyframes slide {
-      0% { transform: translateX(0); }
-      20% { transform: translateX(0); }
-      25% { transform: translateX(-100%); }
-      45% { transform: translateX(-100%); }
-      50% { transform: translateX(-200%); }
-      70% { transform: translateX(-200%); }
-      75% { transform: translateX(-300%); }
-      95% { transform: translateX(-300%); }
-      100% { transform: translateX(0); }
+    .carousel {
+      max-width: 920px;
+      margin: 60px auto;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.45);
+      position: relative;
+      background: rgba(0,0,0,0.2);
     }
 
     .carousel-wrapper {
-      animation: slide 25s infinite;
+      display: flex;
+      width: 700%;
+      animation: slide 28s linear infinite;
+    }
+
+    .carousel-item {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-item img {
+      max-width: 95%;
+      height: auto;
+      border-radius: 12px;
+      margin: 15px 0;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+
+    .caption {
+      padding: 15px 20px 25px;
+      font-size: clamp(14px, 3vw, 17px);
+      color: #e2e8f0;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    @keyframes slide {
+      0%  { transform: translateX(0); }
+      14% { transform: translateX(0); }
+      16% { transform: translateX(-100%); }
+      30% { transform: translateX(-100%); }
+      32% { transform: translateX(-200%); }
+      46% { transform: translateX(-200%); }
+      48% { transform: translateX(-300%); }
+      62% { transform: translateX(-300%); }
+      64% { transform: translateX(-400%); }
+      78% { transform: translateX(-400%); }
+      80% { transform: translateX(-500%); }
+      94% { transform: translateX(-500%); }
+      96% { transform: translateX(-600%); }
+      100%{ transform: translateX(0); }
+    }
+
+    .section {
+      padding: 70px 0;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: clamp(24px, 4vw, 34px);
+      margin-bottom: 35px;
+      color: #f1f5f9;
+      text-align: center;
+      position: relative;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 2px;
+    }
+
+    .abstract {
+      background: rgba(255,255,255,0.04);
+      padding: 35px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      line-height: 1.8;
+      font-size: clamp(15px, 3vw, 17px);
+      color: #e2e8f0;
+      text-align: justify;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    pre {
+      background: rgba(0,0,0,0.25);
+      padding: 25px;
+      border-radius: 14px;
+      overflow-x: auto;
+      color: #e2e8f0;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: left;
+      font-size: clamp(13px, 3vw, 15px);
+      line-height: 1.6;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      padding: 45px 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #94a3b8;
+      font-size: clamp(13px, 3vw, 15px);
+      text-align: center;
     }
   </style>
 </head>
@@ -172,11 +236,14 @@
   <section class="hero">
     <div class="container">
       <h1>Core3D: Dynamic Token Pruning<br>for Dense 3D Multimodal Models</h1>
-      <p style="font-size: 18px; color: #cbd5e1;">Anonymous Submission</p>
-
+      <p>Anonymous Submission</p>
       <div class="links">
-        <a href="https://core-3d.github.io/" class="btn">Project Page</a>
-        <a href="https://github.com/core-3d" class="btn">Code & Dataset</a>
+        <a href="https://core-3d.github.io/" class="btn">
+          <i class="fas fa-globe"></i> Project Page
+        </a>
+        <a href="https://github.com/core-3d" class="btn">
+          <i class="fab fa-github"></i> Code & Dataset
+        </a>
       </div>
     </div>
   </section>
@@ -191,28 +258,28 @@
   <div class="carousel">
     <div class="carousel-wrapper">
       <div class="carousel-item">
-        <img src="static/images/teaser.png" alt="Core3D Teaser">
-        <div class="caption">Core3D: Overview & Motivation</div>
+        <img src="静止的/图片/fig1.png" alt="Framework">
+        <div class="caption">Figure 1: Overall Architecture of Core3D</div>
       </div>
       <div class="carousel-item">
-        <img src="static/images/fig1.png" alt="Framework">
-        <div class="caption">Figure 1: Overall Architecture</div>
+        <img src="静止的/图片/fig2.png" alt="Results">
+        <div class="caption">Figure 2: Performance vs Efficiency Trade-off</div>
       </div>
       <div class="carousel-item">
-        <img src="static/images/fig2.png" alt="Results">
-        <div class="caption">Figure 2: Performance vs Efficiency</div>
+        <img src="静止的/图片/fig3.png" alt="Ablation">
+        <div class="caption">Figure 3: Ablation Study of Core Components</div>
       </div>
       <div class="carousel-item">
-        <img src="static/images/fig3.png" alt="Ablation">
-        <div class="caption">Figure 3: Ablation Studies</div>
+        <img src="静止的/图片/table1.png" alt="Table1">
+        <div class="caption">Table 1: MV-ScanQA Dataset Results</div>
       </div>
       <div class="carousel-item">
-        <img src="static/images/table1.png" alt="Table 1">
-        <div class="caption">Table 1: MV-ScanQA Results</div>
+        <img src="静止的/图片/table2.png" alt="Table2">
+        <div class="caption">Table 2: BraTS & Spatial Video Benchmarks</div>
       </div>
       <div class="carousel-item">
-        <img src="static/images/table2.png" alt="Table 2">
-        <div class="caption">Table 2: BraTS & Spatial Video Results</div>
+        <img src="静止的/图片/table3.png" alt="Table3">
+        <div class="caption">Table 3: Additional Experimental Results</div>
       </div>
     </div>
   </div>
@@ -233,22 +300,21 @@
   <section class="section">
     <div class="container">
       <h2>BibTeX</h2>
-      <pre style="background:rgba(0,0,0,0.2); padding:20px; border-radius:12px; overflow-x:auto; color:#e2e8f0;">
-@article{core3d2026,
+      <pre>@article{core3d2026,
   title   = {Core3D: Dynamic Information Nucleus Selection and Token Pruning for Dense 3D Multimodal Models},
   author  = {Anonymous},
   year    = {2026}
-}
-      </pre>
+}</pre>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <p>This page is designed for academic project presentation.<br>
-      Template © 2026 Core3D</p>
+      <p>This page is designed for academic project presentation.<br>Template © 2026 Core3D</p>
     </div>
   </footer>
 
+  <!-- 图标依赖 -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
