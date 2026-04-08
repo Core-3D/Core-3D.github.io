@@ -6,7 +6,8 @@
   <meta name="description" content="Core3D: 面向密集3D多模态模型的动态信息核选择与Token剪枝">
   <title>Core3D: 动态Token剪枝框架</title>
 
-  <link rel="icon" href="静止的/图片/core3d.ico">
+  <!-- 图标路径：static/images/core3d.ico -->
+  <link rel="icon" href="static/images/core3d.ico">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -117,8 +118,21 @@
       height: auto;
       border-radius: 8px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      display: block;
+      display: block !important;
+      visibility: visible !important;
       object-fit: contain;
+      /* 加载失败兜底：深灰色背景，避免空白 */
+      background: #1e293b;
+      min-height: 300px;
+    }
+
+    /* 图片加载失败提示 */
+    .img-error {
+      position: absolute;
+      color: #94a3b8;
+      font-size: 16px;
+      display: none;
+      margin-top: 120px;
     }
 
     .caption {
@@ -258,28 +272,35 @@
   </button>
 
   <div class="carousel-wrapper" id="carouselWrapper">
+    <!-- 所有图片路径全部改为：static/images/xxx -->
     <div class="carousel-item">
-      <img src="静止的/图片/fig1.png" alt="Core3D整体架构">
+      <img src="static/images/fig1.png" alt="Core3D整体架构" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="img-error">图片加载失败，请检查 static/images 路径</div>
       <div class="caption">图1：Core3D 双阶段动态剪枝整体架构</div>
     </div>
     <div class="carousel-item">
-      <img src="静止的/图片/fig2.png" alt="性能效率权衡">
+      <img src="static/images/fig2.png" alt="性能效率权衡" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="img-error">图片加载失败，请检查 static/images 路径</div>
       <div class="caption">图2：不同压缩率下的性能-效率权衡曲线</div>
     </div>
     <div class="carousel-item">
-      <img src="静止的/图片/fig3.png" alt="消融实验">
+      <img src="static/images/fig3.png" alt="消融实验" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="img-error">图片加载失败，请检查 static/images 路径</div>
       <div class="caption">图3：核心组件与稀疏正则化消融实验</div>
     </div>
     <div class="carousel-item">
-      <img src="静止的/图片/table1.png" alt="MV-ScanQA结果">
+      <img src="static/images/table1.png" alt="MV-ScanQA结果" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="img-error">图片加载失败，请检查 static/images 路径</div>
       <div class="caption">表1：MV-ScanQA 数据集实验结果</div>
     </div>
     <div class="carousel-item">
-      <img src="静止的/图片/table2.png" alt="BraTS结果">
+      <img src="static/images/table2.png" alt="BraTS结果" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="img-error">图片加载失败，请检查 static/images 路径</div>
       <div class="caption">表2：BraTS 医疗与空间视频基准结果</div>
     </div>
     <div class="carousel-item">
-      <img src="静止的/图片/table3.png" alt="补充实验">
+      <img src="static/images/table3.png" alt="补充实验" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="img-error">图片加载失败，请检查 static/images 路径</div>
       <div class="caption">表3：补充实验与鲁棒性验证结果</div>
     </div>
   </div>
