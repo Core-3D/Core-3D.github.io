@@ -11,309 +11,147 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Noto Sans SC', sans-serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #f1f5f9;
-      min-height: 100vh;
-    }
-
-    .hero {
-      padding: 60px 20px;
-      text-align: center;
-      background: rgba(0,0,0,0.3);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .hero h1 {
-      font-size: clamp(24px, 5vw, 40px);
-      background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 20px;
-      line-height: 1.4;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Noto Sans SC', sans-serif; }
+    body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #f1f5f9; min-height: 100vh; }
     
-    .badge {
-      display: inline-block;
-      background: rgba(231, 76, 60, 0.15);
-      color: #ff7675;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-weight: 600;
-      border: 1px solid rgba(231, 76, 60, 0.4);
-      font-size: clamp(14px, 2vw, 16px);
-      margin-bottom: 30px;
-      box-shadow: 0 0 15px rgba(231, 76, 60, 0.2);
-    }
+    /* Hero Section */
+    .hero { padding: 80px 20px 40px; text-align: center; background: rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .hero h1 { font-size: clamp(28px, 5vw, 42px); background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc); -webkit-background-clip: text; color: transparent; margin-bottom: 20px; line-height: 1.3; }
+    
+    .authors { font-size: clamp(16px, 2.5vw, 20px); margin-bottom: 10px; color: #e2e8f0; font-weight: 500; }
+    .authors a { color: inherit; text-decoration: none; border-bottom: 1px dashed #38bdf8; transition: 0.3s; }
+    .authors a:hover { color: #38bdf8; border-bottom-style: solid; }
+    .institution { font-size: clamp(14px, 2vw, 17px); color: #94a3b8; margin-bottom: 25px; }
 
-    .links {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+    .badge { display: inline-block; background: rgba(231, 76, 60, 0.15); color: #ff7675; padding: 8px 20px; border-radius: 20px; font-weight: 600; border: 1px solid rgba(231, 76, 60, 0.4); font-size: 14px; margin-bottom: 30px; box-shadow: 0 0 15px rgba(231, 76, 60, 0.1); }
 
-    .btn {
-      padding: 12px 24px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .links { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+    .btn { padding: 12px 24px; border-radius: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; font-size: 15px; }
+    .btn:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(56, 189, 248, 0.2); }
+    .btn.coming-soon { opacity: 0.7; cursor: default; }
+    .btn.coming-soon:hover { transform: none; box-shadow: none; background: rgba(255,255,255,0.08); }
 
-    .btn:hover {
-      background: rgba(255,255,255,0.18);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
-    }
+    /* Content Styling */
+    .tldr { max-width: 950px; margin: 40px auto; padding: 28px; background: linear-gradient(90deg, rgba(56,189,248,0.08), rgba(129,140,248,0.08)); border-left: 4px solid #38bdf8; border-radius: 12px; line-height: 1.7; }
+    .carousel { max-width: 1000px; margin: 50px auto; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); position: relative; background: #1a1f2e; }
+    .carousel-wrapper { display: flex; transition: transform 0.6s ease-in-out; }
+    .carousel-item { min-width: 100%; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+    .carousel-item img { max-width: 95%; max-height: 450px; border-radius: 8px; background: #1e293b; object-fit: contain; }
+    .caption { margin-top: 15px; color: #94a3b8; font-size: 14px; text-align: center; }
 
-    .tldr {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 28px;
-      background: linear-gradient(90deg, rgba(56,189,248,0.1), rgba(129,140,248,0.1));
-      border-left: 4px solid #38bdf8;
-      border-radius: 12px;
-      font-size: clamp(16px, 3vw, 18px);
-      line-height: 1.7;
-    }
+    .section { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
+    .section h2 { font-size: 28px; text-align: center; margin-bottom: 35px; }
+    .abstract { background: rgba(255,255,255,0.03); padding: 35px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); line-height: 1.8; text-align: justify; color: #cbd5e1; }
 
-    .tldr strong {
-      color: #38bdf8;
-    }
+    /* BibTeX Section */
+    .bibtex-section { background: rgba(15, 23, 42, 0.5); padding: 40px 20px; }
+    .bibtex-container { max-width: 900px; margin: 0 auto; position: relative; }
+    .bibtex-box { background: #000; padding: 25px; border-radius: 12px; font-family: 'Courier New', Courier, monospace; font-size: 14px; color: #a5b4fc; overflow-x: auto; border: 1px solid rgba(129,140,248,0.2); line-height: 1.5; }
+    .copy-btn { position: absolute; top: 15px; right: 15px; background: rgba(56, 189, 248, 0.2); border: 1px solid #38bdf8; color: #38bdf8; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; transition: 0.3s; }
+    .copy-btn:hover { background: #38bdf8; color: white; }
 
-    .carousel {
-      max-width: 1000px;
-      margin: 50px auto;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-      position: relative;
-      background: #1a1f2e;
-      min-height: 500px;
-    }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 10; transition: 0.3s; }
+    .carousel-btn:hover { background: #38bdf8; }
+    .prev-btn { left: 15px; } .next-btn { right: 15px; }
+    .dots { position: absolute; bottom: 15px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; }
+    .dot.active { background: #38bdf8; width: 20px; border-radius: 4px; }
 
-    .carousel-wrapper {
-      display: flex;
-      transition: transform 0.6s ease-in-out;
-      height: 100%;
-    }
-
-    .carousel-item {
-      min-width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      height: 100%;
-    }
-
-    .carousel-item img {
-      max-width: 95%;
-      max-height: 400px;
-      width: auto;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      display: block;
-      object-fit: contain;
-      background: #1e293b;
-      min-height: 300px;
-    }
-
-    .caption {
-      margin-top: 16px;
-      font-size: clamp(14px, 3vw, 16px);
-      color: #cbd5e1;
-      font-weight: 500;
-      text-align: center;
-    }
-
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.6);
-      border: none;
-      color: white;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      font-size: 20px;
-      cursor: pointer;
-      z-index: 10;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(8px);
-    }
-
-    .carousel-btn:hover {
-      background: #38bdf8;
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    .prev-btn {
-      left: 16px;
-    }
-
-    .next-btn {
-      right: 16px;
-    }
-
-    .dots {
-      position: absolute;
-      bottom: 15px;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      z-index: 10;
-    }
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .dot.active {
-      background: #38bdf8;
-    }
-
-    .section {
-      max-width: 1000px;
-      margin: 60px auto;
-      padding: 0 20px;
-    }
-
-    .section h2 {
-      font-size: clamp(24px, 4vw, 32px);
-      text-align: center;
-      margin-bottom: 30px;
-      color: #f1f5f9;
-      position: relative;
-    }
-
-    .section h2::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, #38bdf8, #818cf8);
-      border-radius: 2px;
-    }
-
-    .abstract {
-      background: rgba(255,255,255,0.05);
-      padding: 32px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.1);
-      line-height: 1.8;
-      font-size: clamp(15px, 3vw, 17px);
-      color: #e2e8f0;
-      text-align: justify;
-    }
-
-    footer {
-      padding: 40px 20px;
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      color: #94a3b8;
-      font-size: 14px;
-    }
+    footer { padding: 40px 20px; text-align: center; color: #64748b; font-size: 13px; }
   </style>
 </head>
 <body>
 
 <section class="hero">
   <h1>Core3D: Dynamic Information Nucleus Selection<br>and Token Pruning for Dense 3D Multimodal Models</h1>
-  <div class="badge">
-    <i class="fas fa-fire"></i> Accepted as an Oral Presentation at ICIC 2026!
+  
+  <div class="authors">
+    <a href="https://github.com/core-3d">Yue Zhu</a><sup>1</sup>, 
+    <a href="#">Zengyi Yu</a><sup>1</sup>
   </div>
+  <div class="institution">
+    <sup>1</sup>Anhui University of Finance and Economics 
+  </div>
+
+  <div class="badge">
+    <i class="fas fa-certificate"></i> Accepted to ICIC 2026 (Oral Presentation) 
+  </div>
+
   <div class="links">
     <a href="https://core-3d.github.io/" class="btn">
       <i class="fas fa-globe"></i> Project Page
     </a>
-    <a href="https://github.com/core-3d" class="btn">
-      <i class="fab fa-github"></i> Code & Dataset
+    <a href="Core3D_ICIC_final_12page_.pdf" class="btn" target="_blank">
+      <i class="fas fa-file-pdf"></i> Paper (PDF)
+    </a>
+    <a href="#" class="btn coming-soon">
+      <i class="fab fa-github"></i> Code (Coming Soon)
     </a>
   </div>
 </section>
 
 <div class="tldr">
-  <p><strong>Key Highlights</strong><br>
-  Dense 3D sequences cause a catastrophic explosion of tokens in multimodal models.
-  Core3D uses a two-stage dynamic pruning framework that <strong>improves 3D spatial reasoning</strong> while discarding <strong>over 90% of redundant tokens</strong>, slashing peak VRAM consumption by >80%.</p>
+  <p><strong style="color:#38bdf8">TL;DR:</strong> 
+  针对密集3D序列导致的Token爆炸问题，Core3D通过双阶段路由机制在<strong>不损失推理性能</strong>的前提下剔除<strong>超过90%的冗余Token</strong>，显著降低显存占用并提升处理速度 [cite: 12, 13]。</p>
 </div>
 
 <div class="carousel" id="carousel">
-  <button class="carousel-btn prev-btn" onclick="prevSlide()">
-    <i class="fas fa-chevron-left"></i>
-  </button>
-  <button class="carousel-btn next-btn" onclick="nextSlide()">
-    <i class="fas fa-chevron-right"></i>
-  </button>
-
+  <button class="carousel-btn prev-btn" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+  <button class="carousel-btn next-btn" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
   <div class="carousel-wrapper" id="carouselWrapper">
     <div class="carousel-item">
-      <img src="static/images/fig1.png" alt="Core3D Overall Framework">
-      <div class="caption">Fig 1: Core3D Two-Stage Dynamic Pruning Framework</div>
+      <img src="static/images/fig1.png" alt="Framework">
+      <div class="caption">Fig 1: Core3D 双阶段动态剪枝框架架构图 [cite: 106]</div>
     </div>
     <div class="carousel-item">
-      <img src="static/images/fig2.png" alt="Performance-Efficiency Trade-off">
-      <div class="caption">Fig 2: Performance-Efficiency Trade-off under Different Compression Rates</div>
+      <img src="static/images/fig2.png" alt="Trade-off">
+      <div class="caption">Fig 2: 不同剪枝率下的性能与硬件开销权衡 [cite: 1102]</div>
     </div>
     <div class="carousel-item">
-      <img src="static/images/fig3.png" alt="Ablation Studies">
-      <div class="caption">Fig 3: Pruning Strategy and Sparsity Regularization Ablations</div>
+      <img src="static/images/fig3.png" alt="Ablation">
+      <div class="caption">Fig 3: 核心组件与超参数灵敏度消融实验分析 [cite: 1175]</div>
     </div>
     <div class="carousel-item">
-      <img src="static/images/table1.png" alt="MV-ScanQA Results">
-      <div class="caption">Tab 1: General Reasoning Performance on MV-ScanQA</div>
+      <img src="static/images/table1.png" alt="Results 1">
+      <div class="caption">Tab 1: 在 MV-ScanQA 数据集上的通用推理表现 [cite: 305]</div>
     </div>
     <div class="carousel-item">
-      <img src="static/images/table2.png" alt="BraTS Results">
-      <div class="caption">Tab 2: Task-Specific Mastery on Medical MRI and Spatial Video Benchmarks</div>
+      <img src="static/images/table2.png" alt="Results 2">
+      <div class="caption">Tab 2: 在医学MRI及空间视频领域的领域专长验证 [cite: 316]</div>
     </div>
   </div>
-
   <div class="dots" id="dots"></div>
 </div>
 
 <section class="section">
   <h2>Abstract</h2>
   <div class="abstract">
-    <p>While Multimodal Large Language Models (MLLMs) have significantly advanced 3D spatial reasoning, extending them to dense 3D continuous sequences, such as multiparametric MRI or spatial video frames, triggers a catastrophic token explosion. This massive influx of redundant spatial tokens not only breaches the computational and memory ceilings of standard Transformers but also paradoxically degrades reasoning performance due to attention dilution.</p>
+    <p>While Multimodal Large Language Models (MLLMs) have significantly advanced 3D spatial reasoning, extending them to dense 3D continuous sequences triggers a catastrophic token explosion. This massive influx of redundant spatial tokens breaches the computational and memory ceilings of standard Transformers and paradoxically degrades reasoning performance due to attention dilution[cite: 5, 6].</p>
     <br>
-    <p>To overcome these bottlenecks, we introduce <strong>Core3D</strong>, a plug-and-play, ultra-lightweight dynamic token pruning architecture driven by the principle of extreme computational compression. Core3D seamlessly integrates into existing 3D-MLLMs via a dual-stage routing layer. First, an <em>Inter-Slice Feature Similarity Filtering</em> module aggressively truncates macro-level redundant backgrounds across adjacent physical slices. Second, a <em>Dynamic Information Nucleus Selection</em> mechanism leverages inherent self-attention matrices to adaptively preserve only the most critical semantic nuclei, effectively executing a hard prune on non-informative features.</p>
+    <p>To overcome these bottlenecks, we introduce <strong>Core3D</strong>, a plug-and-play, ultra-lightweight dynamic token pruning architecture driven by the principle of extreme computational compression. Core3D integrates into existing 3D-MLLMs via a dual-stage routing layer: first, an <em>Inter-Slice Feature Similarity Filtering</em> module aggressively truncates macro-level redundant backgrounds; second, a <em>Dynamic Information Nucleus Selection</em> mechanism adaptively preserves only the most critical semantic nuclei via self-attention rollout[cite: 7, 10].</p>
     <br>
-    <p>By optimizing this framework with a sparsity regularization loss during parameter-efficient fine-tuning, the massive foundational backbones remain completely frozen. Extensive evaluations across dense medical sequences (BraTS) and unconstrained multi-view environments (MV-ScanQA, SPATIALAB) demonstrate that Core3D achieves an extreme token compression rate of over 90%. Consequently, it slashes peak VRAM consumption by over 80% and dramatically accelerates inference, while simultaneously surpassing unpruned baselines in 3D spatial localization and geometric reasoning. Core3D democratizes the hardware-accelerated deployment of powerful 3D-MLLMs for resource-constrained edge and clinical domains.</p>
+    <p>Extensive evaluations across dense medical sequences (BraTS) and multi-view environments demonstrate that Core3D achieves an extreme compression rate of over 90%, slashes peak VRAM by >80%, and surpasses unpruned baselines in spatial localization[cite: 12, 13]. Our framework democratizes the deployment of powerful 3D-MLLMs for resource-constrained edge and clinical domains[cite: 14].</p>
+  </div>
+</section>
+
+<section class="bibtex-section">
+  <div class="bibtex-container">
+    <h2 style="text-align:left; margin-bottom: 20px; font-size: 24px;">Citation</h2>
+    <button class="copy-btn" onclick="copyBib()">Copy BibTeX</button>
+    <div class="bibtex-box" id="bibtexCode">
+@inproceedings{zhu2026core3d,
+  title={Core3D: Dynamic Information Nucleus Selection and Token Pruning for Dense 3D Multimodal Models},
+  author={Zhu, Yue and Yu, Zengyi},
+  booktitle={International Conference on Intelligent Computing (ICIC)},
+  year={2026},
+  publisher={Springer},
+  note={Lecture Notes in Bioinformatics (LNBI)}
+}</div>
   </div>
 </section>
 
 <footer>
-  <p>Core3D Project Page © 2026</p>
+  <p>Core3D Project Page © 2026 | Anhui University of Finance and Economics </p>
 </footer>
 
 <script>
@@ -323,55 +161,37 @@
   const totalSlides = items.length;
   const dotsContainer = document.getElementById('dots');
   const carousel = document.getElementById('carousel');
-  let autoplay;
 
   function initDots() {
     for (let i = 0; i < totalSlides; i++) {
       const dot = document.createElement('div');
-      dot.classList.add('dot');
-      dot.setAttribute('onclick', `goToSlide(${i})`);
+      dot.className = 'dot' + (i===0?' active':'');
+      dot.onclick = () => goToSlide(i);
       dotsContainer.appendChild(dot);
     }
-    updateDots();
   }
 
   function updateDots() {
-    const dots = document.querySelectorAll('.dot');
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === currentSlide);
-    });
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
   }
 
   function goToSlide(n) {
     currentSlide = n;
-    updateSlide();
-  }
-
-  function updateSlide() {
     wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
     updateDots();
   }
 
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    updateSlide();
-  }
+  function nextSlide() { goToSlide((currentSlide + 1) % totalSlides); }
+  function prevSlide() { goToSlide((currentSlide - 1 + totalSlides) % totalSlides); }
 
-  function prevSlide() {
-    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    updateSlide();
+  function copyBib() {
+    const text = document.getElementById('bibtexCode').innerText;
+    navigator.clipboard.writeText(text).then(() => alert('BibTeX copied!'));
   }
-
-  function startAutoplay() {
-    autoplay = setInterval(nextSlide, 5000);
-  }
-
-  carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
-  carousel.addEventListener('mouseleave', startAutoplay);
 
   window.onload = () => {
     initDots();
-    startAutoplay();
+    setInterval(nextSlide, 5000);
   };
 </script>
 </body>
